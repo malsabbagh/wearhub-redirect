@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting to vision.iapps.io...</title>
-  <meta name="description" content="Redirecting from vision.wearhub.com to vision.iapps.io.">
-  <link rel="canonical" href="https://vision.iapps.io">
+  <title>Redirecting...</title>
+  <meta name="description" content="Transferring to the destination website.">
+  <link rel="canonical" id="canonicalLink" href="">
   
   <!-- SEO & Social Meta -->
-  <meta property="og:title" content="Redirecting to vision.iapps.io">
-  <meta property="og:description" content="Redirecting from vision.wearhub.com to vision.iapps.io.">
+  <meta property="og:title" content="Redirecting...">
+  <meta property="og:description" content="Transferring to the destination website.">
   <meta property="og:type" content="website">
   
   <!-- Preconnect to Google Fonts -->
@@ -253,18 +253,34 @@
   </style>
   
   <script>
-    // Immediate Redirect Logic (executed inline to minimize latency)
-    const TARGET_ORIGIN = "https://vision.iapps.io";
-    
-    function getRedirectURL() {
+    // Configuration mapping based on the incoming hostname
+    function getRedirectConfig() {
+      const hostname = window.location.hostname;
       const currentPath = window.location.pathname;
       const currentSearch = window.location.search;
       const currentHash = window.location.hash;
-      return TARGET_ORIGIN + currentPath + currentSearch + currentHash;
+      const suffix = currentPath + currentSearch + currentHash;
+      
+      // If the domain is www.wearhub.com or wearhub.com (and doesn't match the vision subdomain)
+      if (hostname.includes("wearhub.com") && !hostname.includes("vision")) {
+        return {
+          targetURL: "https://wearhub.com" + suffix,
+          sourceDomain: "www.wearhub.com",
+          targetDomain: "wearhub.com"
+        };
+      }
+      
+      // Default to vision.wearhub.com -> vision.iapps.io mapping
+      return {
+        targetURL: "https://vision.iapps.io" + suffix,
+        sourceDomain: "vision.wearhub.com",
+        targetDomain: "vision.iapps.io"
+      };
     }
     
-    // Redirect immediately
-    window.location.replace(getRedirectURL());
+    // Redirect immediately to minimize latency
+    const config = getRedirectConfig();
+    window.location.replace(config.targetURL);
   </script>
 </head>
 <body>
@@ -282,16 +298,16 @@
       <p>We are transferring you to the new destination. If you're not redirected within a few seconds, click the button below.</p>
       
       <div class="domain-badge-container">
-        <span class="domain-badge">vision.wearhub.com</span>
+        <span class="domain-badge" id="sourceBadge">vision.wearhub.com</span>
         <span class="arrow">&rarr;</span>
-        <span class="domain-badge">vision.iapps.io</span>
+        <span class="domain-badge" id="targetBadge">vision.iapps.io</span>
       </div>
       
       <div class="progress-bar-container">
         <div class="progress-bar" id="progressBar"></div>
       </div>
       
-      <a id="redirectLink" href="https://vision.iapps.io" class="btn">Proceed to Destination</a>
+      <a id="redirectLink" href="" class="btn">Proceed to Destination</a>
       
       <noscript>
         <div style="margin-top: 20px; padding: 12px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; font-size: 14px; color: #fca5a5;">
@@ -308,12 +324,30 @@
   <script>
     // Fallback/UI update script (runs after DOM parses)
     document.addEventListener("DOMContentLoaded", () => {
-      const redirectURL = getRedirectURL();
+      const config = getRedirectConfig();
       
-      // Update link target
+      // Update UI elements dynamically
+      document.title = "Redirecting to " + config.targetDomain + "...";
+      
+      const canonical = document.getElementById("canonicalLink");
+      if (canonical) {
+        canonical.href = config.targetURL;
+      }
+      
+      const sourceBadge = document.getElementById("sourceBadge");
+      if (sourceBadge) {
+        sourceBadge.textContent = config.sourceDomain;
+      }
+      
+      const targetBadge = document.getElementById("targetBadge");
+      if (targetBadge) {
+        targetBadge.textContent = config.targetDomain;
+      }
+      
       const link = document.getElementById("redirectLink");
       if (link) {
-        link.href = redirectURL;
+        link.href = config.targetURL;
+        link.textContent = "Proceed to " + config.targetDomain;
       }
       
       // Animate progress bar as visual progress feedback
@@ -324,7 +358,7 @@
           if (width >= 100) {
             clearInterval(interval);
             // Final fallback to hard redirect
-            window.location.href = redirectURL;
+            window.location.href = config.targetURL;
           } else {
             width += 2;
             progressBar.style.width = width + "%";
