@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <meta name="description" content="Transferring to the destination website.">
+  <link rel="canonical" id="canonicalLink" href="">
+  
+  <!-- SEO & Social Meta -->
+  <meta property="og:title" content="Redirecting...">
+  <meta property="og:description" content="Transferring to the destination website.">
+  <meta property="og:type" content="website">
+  
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Premium Styling */
+    :root {
+      --bg-dark: #090a0f;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-color: #6366f1; /* Indigo */
+      --accent-glow: rgba(99, 102, 241, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* Background glows */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: 1;
+      opacity: 0.5;
+    }
+    
+    .glow-orb-1 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #4f46e5 0%, rgba(79, 70, 229, 0) 70%);
+      top: -100px;
+      left: -100px;
+      animation: float-orb 15s ease-in-out infinite alternate;
+    }
+    
+    .glow-orb-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #06b6d4 0%, rgba(6, 182, 212, 0) 70%);
+      bottom: -150px;
+      right: -150px;
+      animation: float-orb-reverse 20s ease-in-out infinite alternate;
+    }
+    
+    @keyframes float-orb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(80px, 50px) scale(1.1); }
+    }
+    
+    @keyframes float-orb-reverse {
+      0% { transform: translate(0, 0) scale(1.1); }
+      100% { transform: translate(-100px, -50px) scale(0.9); }
+    }
+    
+    /* Container styling */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 460px;
+      padding: 24px;
+    }
+    
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes fade-in-up {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Spinner animation */
+    .loader-container {
+      margin-bottom: 32px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .loader-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.05);
+      border-top-color: var(--accent-color);
+      border-right-color: #06b6d4;
+      animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    }
+    
+    .loader-glow {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      filter: blur(15px);
+      opacity: 0.25;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.15; transform: scale(0.9); }
+      50% { opacity: 0.35; transform: scale(1.1); }
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    
+    .domain-badge-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    
+    .domain-badge {
+      font-size: 13px;
+      font-family: monospace;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      color: var(--text-main);
+    }
+    
+    .arrow {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+    
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--accent-color) 0%, #4f46e5 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    }
+    
+    .btn:active {
+      transform: translateY(1px);
+    }
+    
+    /* Progress bar */
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 2px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-color), #06b6d4);
+      border-radius: 2px;
+      transition: width 0.1s linear;
+    }
+    
+    .footer-text {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.25);
+      margin-top: 24px;
+    }
+    
+    @media (max-width: 480px) {
+      .card {
+        padding: 32px 20px;
+      }
+    }
+  </style>
+  
+  <script>
+    // Configuration mapping based on the incoming hostname
+    function getRedirectConfig() {
+      const hostname = window.location.hostname;
+      const currentPath = window.location.pathname;
+      const currentSearch = window.location.search;
+      const currentHash = window.location.hash;
+      const suffix = currentPath + currentSearch + currentHash;
+      
+      // If the domain is www.wearhub.com or wearhub.com (and doesn't match the vision subdomain)
+      if (hostname.includes("wearhub.com") && !hostname.includes("vision")) {
+        return {
+          targetURL: "https://wearhub.com" + suffix,
+          sourceDomain: "www.wearhub.com",
+          targetDomain: "wearhub.com"
+        };
+      }
+      
+      // Default to vision.wearhub.com -> vision.iapps.io mapping
+      return {
+        targetURL: "https://vision.iapps.io" + suffix,
+        sourceDomain: "vision.wearhub.com",
+        targetDomain: "vision.iapps.io"
+      };
+    }
+    
+    // Redirect immediately to minimize latency
+    const config = getRedirectConfig();
+    window.location.replace(config.targetURL);
+  </script>
+</head>
+<body>
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+  
+  <div class="container">
+    <div class="card">
+      <div class="loader-container">
+        <div class="loader-glow"></div>
+        <div class="loader-ring"></div>
+      </div>
+      
+      <h1>Redirecting...</h1>
+      <p>We are transferring you to the new destination. If you're not redirected within a few seconds, click the button below.</p>
+      
+      <div class="domain-badge-container">
+        <span class="domain-badge" id="sourceBadge">vision.wearhub.com</span>
+        <span class="arrow">&rarr;</span>
+        <span class="domain-badge" id="targetBadge">vision.iapps.io</span>
+      </div>
+      
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      
+      <a id="redirectLink" href="" class="btn">Proceed to Destination</a>
+      
+      <noscript>
+        <div style="margin-top: 20px; padding: 12px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 8px; font-size: 14px; color: #fca5a5;">
+          <strong>JavaScript is disabled.</strong> Please click the button above to proceed manually.
+        </div>
+      </noscript>
+      
+      <div class="footer-text">
+        Powered by Wearhub & iapps
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Fallback/UI update script (runs after DOM parses)
+    document.addEventListener("DOMContentLoaded", () => {
+      const config = getRedirectConfig();
+      
+      // Update UI elements dynamically
+      document.title = "Redirecting to " + config.targetDomain + "...";
+      
+      const canonical = document.getElementById("canonicalLink");
+      if (canonical) {
+        canonical.href = config.targetURL;
+      }
+      
+      const sourceBadge = document.getElementById("sourceBadge");
+      if (sourceBadge) {
+        sourceBadge.textContent = config.sourceDomain;
+      }
+      
+      const targetBadge = document.getElementById("targetBadge");
+      if (targetBadge) {
+        targetBadge.textContent = config.targetDomain;
+      }
+      
+      const link = document.getElementById("redirectLink");
+      if (link) {
+        link.href = config.targetURL;
+        link.textContent = "Proceed to " + config.targetDomain;
+      }
+      
+      // Animate progress bar as visual progress feedback
+      const progressBar = document.getElementById("progressBar");
+      if (progressBar) {
+        let width = 0;
+        const interval = setInterval(() => {
+          if (width >= 100) {
+            clearInterval(interval);
+            // Final fallback to hard redirect
+            window.location.href = config.targetURL;
+          } else {
+            width += 2;
+            progressBar.style.width = width + "%";
+          }
+        }, 30); // ~1.5s total progress animation time
+      }
+    });
+  </script>
+</body>
+</html>
